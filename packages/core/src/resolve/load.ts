@@ -1,0 +1,61 @@
+import { PLUGIN_NAME } from "@/types";
+import HTML from "html-parse-stringify";
+import path from "node:path";
+import { ICON_ATTRIBUTE, NODE_TYPE } from "../filter/filter";
+import { fetchSvgFromService } from "./fetch";
+import { getIconifyIcon } from "./iconify";
+import { optimiseRawSvg } from "./optimise";
+import {
+	getUseTagHref,
+	isFilePath,
+	isUrl,
+	readRawSvgFromFile,
+	removeIdFromPath,
+} from "./util";
+
+async function getRawSVG(
+	node: TagAstElement,
+	nodeType: Exclude<NODE_TYPE, NODE_TYPE.IGNORED>,
+	outDir: string
+) {
+	const href =
+		nodeType === NODE_TYPE.USE_HREF
+			? getUseTagHref(node)
+			: (node.attrs[ICON_ATTRIBUTE] as string);
+
+	if (isUrl(href)) {
+		return fetchSvgFromService(href);
+	}
+
+	if (isFilePath(href)) {
+		return readRawSvgFromFile(path.join(outDir, removeIdFromPath(href)));
+	}
+
+	const [pack, name] = href.split(":");
+	if (pack && name) {
+		return getIconifyIcon(pack, name);
+	}
+
+	throw nodeType === NODE_TYPE.USE_HREF
+		? new Error(
+				`[${PLUGIN_NAME}] could not resolve icon from <use> with attributes ${JSON.stringify(
+					node.attrs,
+					null,
+					4
+				)}`
+		  )
+		: new Error(
+				`Could not resolve icon from ${node.name} with ${ICON_ATTRIBUTE}="${href}"`
+		  );
+}
+
+/**
+ * Load the raw SVG whether from the output directory, the Iconify API, or some other external URL
+ */
+export async function loadSvg(...params: Parameters<typeof getRawSVG>) {
+	const raw = await getRawSVG(...params);
+	const optimised = optimiseRawSvg(raw);
+	const [svg] = HTML.parse(optimised) as [TagAstElement];
+	svg.attrs[ICON_ATTRIBUTE] = "";
+	return svg;
+}

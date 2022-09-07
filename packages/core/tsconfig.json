@@ -1,0 +1,19 @@
+{
+	"extends": "@icon-prerender/tsconfig/tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"~/*": ["test/*"]
+		}
+	},
+	"include": [
+		"src/**/*.ts",
+		"test",
+		"vitest.config.ts",
+		"tsup.config.ts",
+		"package.json",
+		"tsconfig.json"
+	],
+	"exclude": ["node_modules", "dist"]
+}

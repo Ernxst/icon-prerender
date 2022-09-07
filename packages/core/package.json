@@ -1,0 +1,127 @@
+{
+	"name": "icon-prerender",
+	"version": "0.0.1",
+	"description": "A plugin to prerender your SVG icons at compile time, rather than making the client fetch them during runtime.",
+	"author": "Ernest Nkansah-Badu",
+	"license": "MIT",
+	"homepage": "https://github.com/Ernxst/icon-prerender",
+	"bugs": "https://github.com/Ernxst/icon-prerender/issues",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Ernxst/icon-prerender.git",
+		"directory": "packages/core"
+	},
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		"./astro": {
+			"types": "./dist/astro/index.d.ts",
+			"import": "./dist/astro/index.js",
+			"require": "./dist/astro/index.cjs"
+		},
+		"./esbuild": {
+			"types": "./dist/esbuild/index.d.ts",
+			"import": "./dist/esbuild/index.js",
+			"require": "./dist/esbuild/index.cjs"
+		},
+		"./rollup": {
+			"types": "./dist/rollup/index.d.ts",
+			"import": "./dist/rollup/index.js",
+			"require": "./dist/rollup/index.cjs"
+		},
+		"./vite": {
+			"types": "./dist/vite/index.d.ts",
+			"import": "./dist/vite/index.js",
+			"require": "./dist/vite/index.cjs"
+		},
+		"./webpack": {
+			"types": "./dist/webpack/index.d.ts",
+			"import": "./dist/webpack/index.js",
+			"require": "./dist/webpack/index.cjs"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"astro": [
+				"./dist/astro/index.d.ts"
+			],
+			"esbuild": [
+				"./dist/esbuild/index.d.ts"
+			],
+			"rollup": [
+				"./dist/rollup/index.d.ts"
+			],
+			"webpack": [
+				"./dist/webpack/index.d.ts"
+			],
+			"vite": [
+				"./dist/vite/index.d.ts"
+			]
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"engines": {
+		"node": "^14.15.0 || >=16.0.0",
+		"pnpm": ">=7.5.0"
+	},
+	"packageManager": "pnpm@7.5.2",
+	"scripts": {
+		"build": "tsup --clean",
+		"build:dts": "tsup --dtsOnly",
+		"--------------------------------------------------------------------------------": "",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"---------------------------------------------------------------------------------": "",
+		"test": "vitest run"
+	},
+	"keywords": [
+		"icon",
+		"svg",
+		"prerender",
+		"iconify",
+		"astro-integration",
+		"vite-plugin",
+		"esbuild-plugin",
+		"rollup-plugin",
+		"webpack-plugin"
+	],
+	"devDependencies": {
+		"@icon-prerender/eslint": "workspace:*",
+		"@icon-prerender/tsconfig": "workspace:*",
+		"@iconify/json": "2.1.104",
+		"@iconify/types": "1.1.0",
+		"@iconify/utils": "1.0.33",
+		"@types/node": "18.7.15",
+		"@types/svgo": "2.6.4",
+		"@vitest/coverage-istanbul": "0.23.1",
+		"eslint": "8.22.0",
+		"fast-glob": "3.2.11",
+		"html-parse-stringify": "3.0.1",
+		"jsdom": "20.0.0",
+		"svgo": "2.8.0",
+		"tsup": "6.2.3",
+		"type-fest": "2.19.0",
+		"vite-tsconfig-paths": "3.5.0",
+		"vitest": "0.23.1",
+		"vitest-fetch-mock": "0.2.1"
+	},
+	"dependencies": {
+		"astro": "^1.0.0",
+		"esbuild": "^0.15.7",
+		"rollup": "^2.79.0",
+		"vite": "^3.0.0",
+		"webpack": "^5.0.0"
+	},
+	"peerDependencies": {
+		"astro": "*",
+		"esbuild": "*",
+		"rollup": "*",
+		"vite": "*",
+		"webpack": "*"
+	}
+}

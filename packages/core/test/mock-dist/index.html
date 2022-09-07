@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!-- This HTML is designed to test every aspect of icon-prerender -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Test file</title>
+	</head>
+	<body>
+		<nav></nav>
+
+		<main>
+			<header>
+				<h1>Hello World</h1>
+				<p>
+					<!-- Test iconify -->
+					<span data-icon="mdi:chevron-double-right"></span> Lorem ipsum dolor
+				</p>
+			</header>
+
+			<section>
+				<h2>Section header</h2>
+				<p>Some subtitle</p>
+
+				<article>
+					<h3>Article header</h3>
+
+					<div>
+						<p>
+							<!-- Test <use> tag -->
+							<svg>
+								<use href="assets/astro.svg"></use>
+							</svg>
+							Some text content
+						</p>
+
+						<p>
+							<!-- Test fetching icon SVG from an api endpoint (mocked) -->
+							<span data-icon="https://api.service.com">
+								<!-- Test nesting icons within each other -->
+								<svg data-icon="feather:edit"></svg>
+							</span>
+						</p>
+
+						<p>
+							<span data-icon="feather:edit" class="preserved"></span>
+							<span
+								data-icon="https://api.some-other-service.com"
+								class="preserved"
+							></span>
+						</p>
+					</div>
+				</article>
+			</section>
+		</main>
+
+		<footer></footer>
+	</body>
+</html>
