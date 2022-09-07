@@ -33,7 +33,7 @@
 		"---------------------------------------------------------------------------------------": "",
 		"prepublishOnly": "pnpm run build",
 		"release": "pnpm run build && changeset publish",
-		"version": "changeset version && pnpm install --no-frozen-lockfile && pnpm run format"
+		"version": "changeset version && pnpm install --no-frozen-lockfile --filter=!@example/* && pnpm run format"
 	},
 	"devDependencies": {
 		"@changesets/changelog-github": "0.4.6",
