@@ -20,6 +20,8 @@ defaults:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: true
+  CI: true
 
 jobs:
   lint:
@@ -48,30 +50,6 @@ jobs:
       - name: 🔎 Type check
         run: pnpm run typecheck
 
-  # Build installs all devDependencies and runs our full build pipeline.
-  # We upload all `dist/` artifacts to GitHub, which can be shared by all dependent jobs.
-  build:
-    name: 🛠 Build Packages
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
-
-      - name: 📤 Install dependencies
-        uses: ./.github/actions/deps
-
-      - name: 🧱 Build Packages
-        run: pnpm run build
-
-      - name: ⬆️ Upload Package Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: |
-            packages/*/dist/**
-            packages/*/*/dist/**
-          if-no-files-found: error
-
   test:
     name: "🧪 Test: ${{ matrix.os }} (node@${{ matrix.node_version }})"
     runs-on: ${{ matrix.os }}
@@ -85,16 +63,10 @@ jobs:
           - os: macos-latest
             node_version: 16
       fail-fast: false
-    needs: [build]
+    needs: [lint, typecheck]
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
-
-      - name: ⬇️ Download Build Artifacts
-        uses: actions/download-artifact@v3
-
-      - name: 💿 Extract Artifacts
-        run: ./.github/extract-artifacts.sh
 
       - name: 📤 Install dependencies
         uses: ./.github/actions/deps
