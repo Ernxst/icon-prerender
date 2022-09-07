@@ -71,7 +71,7 @@ Additionally, the `data-icon` attribute can either be:
   - Note that this is relative to the build output directory - you can modify the asset chunk names to make the filenames more predictable if needed
   - This also means there is no need to register icon sets - just set the path to the SVG file and it will be inlined
 - An external URL pointing to an SVG file - this can be an API endpoint or simply a statically hosted SVG file
-  - The API **must*return an raw SVG (not JSON or HTML) and must contain `svg` in the `content-type` header
+  - The API **must** return an raw SVG (not JSON or HTML) and must contain `svg` in the `content-type` header
 
 Whatever you provide to `data-icon` will be resolved and prerendered at build time.
 
