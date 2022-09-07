@@ -1,3 +1,7 @@
+[![codecov](https://codecov.io/gh/Ernxst/icon-prerender/branch/main/graph/badge.svg?token=4FA8D7L8DL)](https://codecov.io/gh/Ernxst/icon-prerender)
+
+[![🚀 CI](https://github.com/Ernxst/icon-prerender/actions/workflows/ci.yml/badge.svg)](https://github.com/Ernxst/icon-prerender/actions/workflows/ci.yml)
+
 # 🚀 Icon Prerender
 
 A plugin (likely compatible with your build tool) that prerenders your SVG icons at build time so your clients don't have to fetch them during browsing. Designed for ease-of-use and maximum performance.
