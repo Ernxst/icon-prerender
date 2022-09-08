@@ -10,6 +10,7 @@ const keys = [
 	"num",
 	"dist",
 	"evt",
+	"temp",
 	"dest",
 	"prod",
 	"dev",
