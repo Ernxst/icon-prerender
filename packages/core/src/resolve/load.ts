@@ -32,6 +32,9 @@ async function getRawSVG(
 	 * development because bundler does not copy over static assets if they are
 	 * only referenced using a data attribute (rather than a recognised HTML
 	 * attribute)
+	 * 
+	 * Perhaps modify plugin to also traverse HTML and copy referenced local 
+	 * assets to directory?
 	 */
 
 	if (isFilePath(href)) {
