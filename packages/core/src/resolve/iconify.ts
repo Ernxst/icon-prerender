@@ -21,7 +21,8 @@ async function loadPack(pack: string) {
 	const paths = await glob(pattern);
 
 	if (paths.length === 0 || !fs.existsSync(paths[0])) {
-		throw new Error(`[${PLUGIN_NAME}] could not find icon pack "${pack}"`);
+		throw new Error(`[${PLUGIN_NAME}] could not find icon pack "${pack}"
+		  - have you run "npm install --save-dev @iconify/json" ?`);
 	}
 
 	const icons = await loadCollection(paths[0]);
