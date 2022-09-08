@@ -27,7 +27,21 @@ async function getRawSVG(
 		return fetchSvgFromService(href);
 	}
 
+	/**
+	 * TODO: Fix - currently only <use> tags work _with_ relative paths during
+	 * development because bundler does not copy over static assets if they are
+	 * only referenced using a data attribute (rather than a recognised HTML
+	 * attribute)
+	 */
+
 	if (isFilePath(href)) {
+		// During development
+		/* istanbul ignore next */
+		if (isUrl(outDir)) {
+			return fetchSvgFromService(
+				new URL(removeIdFromPath(href), outDir).toString()
+			);
+		}
 		return readRawSvgFromFile(path.join(outDir, removeIdFromPath(href)));
 	}
 
