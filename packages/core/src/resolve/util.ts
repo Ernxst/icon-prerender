@@ -55,7 +55,6 @@ export function removeIdFromPath(rawPath: string) {
 
 /**
  *
- * Assumes the `node` has a `use` tag
  * @param node
  */
 export function getUseTagHref(node: TagAstElement) {
