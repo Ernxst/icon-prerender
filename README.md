@@ -28,16 +28,18 @@ Again, [`astro-icon`](https://github.com/natemoo-re/astro-icon) works in this wa
 
 ## Installation
 
+This plugin requires [`@iconify/json`](https://www.npmjs.com/package/@iconify/json) as a peer dependency:
+
 ```bash
-npm i --save-dev icon-prerender
+npm i --save-dev icon-prerender @iconify/json
 ```
 
 ```bash
-yarn add -D icon-prerender
+yarn add -D icon-prerender @iconify/json
 ```
 
 ```bash
-pnpm i -D icon-prerender
+pnpm i -D icon-prerender @iconify/json
 ```
 
 I also recommend installing and enabling the [`iconify-intellisense`](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) VSCode extension by [Anthony Fu](https://github.com/antfu).
@@ -61,12 +63,12 @@ In the template, you can define an icon to prerender as either:
 </svg>
 ```
 
-- Note that for it to be valid HTML, you need to point to the ID of the element in the SVG file.
+- Note that for it to be valid HTML, you need to point to the ID of the element in the SVG file
 - This suffix is stripped when resolving the path to the raw SVG item
 
-This last component sets `icon-prerender` from other icon libraries as this is valid HTML - if you disabled `icon-prerender`, the above would still work (assuming `href` is a valid path). The only difference would be it would have to make an extra network request during runtime to fetch the SVG and would then have to render it.
+This last feather sets `icon-prerender` from other icon libraries as this is valid HTML - if you disabled `icon-prerender`, the above would still work (assuming the `href` points to a valid path). The only difference would be it would have to make an extra network request during runtime to fetch the SVG and would then have to render it.
 
-This is the default resolution algorithm; by default, these are the only elements that will be transformed into `<svg />` elements. See ["Configuration"](#configuration) to see how this can be changed.
+So, the cases above describe the default resolution algorithm; by default, these are the only elements that will be transformed into `<svg />` elements. See ["Configuration"](#configuration) to see how this can be changed.
 
 Additionally, the `data-icon` attribute can either be:
 
@@ -79,10 +81,11 @@ Additionally, the `data-icon` attribute can either be:
 
 Whatever you provide to `data-icon` will be resolved and prerendered at build time.
 
-Any attributes defined on the original element will be preserved and will override identical attributes in the resolved SVG element, except:
+Any attributes defined on the original element (apart from `data-icon` unless it is a `[pack]:[name]` string) will be preserved and will override identical attributes in the resolved SVG element, except:
 
 - The `class` will be concatenated from both elements
 - Any children will be merged from both elements with children in the resolved SVG appearing lower in the template
+  - In the case of a `<use>` tag wrapped inside an `<svg>`, the `<use>` tag will be removed
 
 Note that icons can be nested inside each other, however, children will be resolved first. So the innermost icon will be prerendered first.
 
@@ -160,13 +163,9 @@ Note: specifying `include` or `exclude` will not override default filtering - th
 
 ## Roadmap
 
-[ ] Make plugins run during bundle (instead of after)
+- [ ] Allow consumers to disable default resolution via a new plugin option
 
-- Should improve performance since it is not reading and writing to output files
-
-[ ] Allow consumers to disable default resolution via a new plugin option
-
-- Custom resolution would then be achieved by simply using `include` and `exclude` in tandem with this new plugin option
+  - Completely custom resolution would then be achieved by simply using `include` and `exclude` in tandem with this new plugin option
 
 Have any other ideas? Make a suggestion in the [Discussions](https://github.com/Ernxst/icon-prerender/discussions) tab.
 

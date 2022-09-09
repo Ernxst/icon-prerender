@@ -32,9 +32,10 @@ function generateRandomString(length = 8) {
  *
  * Allows tests to run in parallel since they use separate directories
  *
+ * @param mockDir the directory that could be copied into this new one
  * @returns
  */
-export function createDirectoryHandler(): DirectoryHandler {
+export function createDirectoryHandler(mockDir: string): DirectoryHandler {
 	const dirName = path.join(
 		process.cwd(),
 		TEMP_DIR,
@@ -51,7 +52,7 @@ export function createDirectoryHandler(): DirectoryHandler {
 			}
 
 			// Copy our mock output directory to a temporary directory for each test
-			await fs.promises.cp("test/mock-dist", dirName, {
+			await fs.promises.cp(mockDir, dirName, {
 				recursive: true,
 				force: true,
 				dereference: true,

@@ -1,10 +1,10 @@
-import { prerender } from "@/plugin-common";
-import type { SvgPrerenderPluginOptions } from "@/types";
+import type { IconPrerenderPluginOptions } from "@/types";
 import { PLUGIN_NAME } from "@/types";
-import type { Plugin } from "rollup";
+import type { NormalizedOutputOptions, Plugin } from "rollup";
+import { useLoader } from "../loader/loader";
 
 export interface IconPrerenderPluginRollupOptions
-	extends SvgPrerenderPluginOptions {}
+	extends IconPrerenderPluginOptions {}
 
 /**
  * Rollup plugin to replace icons with the actual SVG element at build time.
@@ -15,13 +15,16 @@ export interface IconPrerenderPluginRollupOptions
 export default function icons(
 	options?: IconPrerenderPluginRollupOptions
 ): Plugin {
+	let outputOptions: NormalizedOutputOptions;
+
 	return {
 		name: PLUGIN_NAME,
-		async writeBundle(config) {
-			await prerender({
-				...options,
-				outDir: config.dir ?? "dist",
-			});
+		renderStart(opts) {
+			outputOptions = opts;
+		},
+		load(id) {
+			const outDir = outputOptions.dir ?? "dist";
+			return useLoader(id, { outDir, ...options });
 		},
 	};
 }

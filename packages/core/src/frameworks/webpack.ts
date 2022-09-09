@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable unicorn/prefer-module */
 /* eslint-disable import/no-import-module-exports */
-import { prerender } from "@/plugin-common";
-import type { SvgPrerenderPluginOptions } from "@/types";
+import { prerenderStatic } from "@/prerender/static";
+import type { IconPrerenderPluginOptions } from "@/types";
 import { PLUGIN_NAME } from "@/types";
 import type { Compiler, Stats } from "webpack";
 
-interface IconPrerenderPluginWebpackOptions extends SvgPrerenderPluginOptions {}
+// TODO: Make it work during development
+interface IconPrerenderPluginWebpackOptions
+	extends IconPrerenderPluginOptions {}
 
 export default class IconPrerenderWebpackPlugin {
 	private readonly __options: IconPrerenderPluginWebpackOptions;
@@ -22,7 +24,7 @@ export default class IconPrerenderWebpackPlugin {
 	apply(compiler: Compiler) {
 		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		compiler.hooks.done.tapAsync(PLUGIN_NAME, async (_stats: Stats) => {
-			await prerender({
+			await prerenderStatic({
 				...this.__options,
 				outDir: compiler.options.output.path ?? "dist",
 			});

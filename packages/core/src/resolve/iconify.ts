@@ -3,14 +3,13 @@ import type { IconifyJSON } from "@iconify/types";
 import { getIconData } from "@iconify/utils";
 import fs from "node:fs";
 import path from "node:path";
-
 import { PLUGIN_NAME } from "@/types";
 import glob from "fast-glob";
 import HTML from "html-parse-stringify";
 
 export const ICON_PACKS = new Map<string, IconifyJSON>();
 
-async function loadPack(pack: string) {
+async function loadIconPack(pack: string) {
 	const pattern = path.join(
 		"node_modules",
 		"@iconify",
@@ -31,7 +30,7 @@ async function loadPack(pack: string) {
 
 export async function getIconifyIcon(pack: string, name: string) {
 	if (!ICON_PACKS.has(pack)) {
-		await loadPack(pack);
+		await loadIconPack(pack);
 	}
 
 	const iconPack = ICON_PACKS.get(pack) as IconifyJSON;

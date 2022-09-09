@@ -1,17 +1,12 @@
 import { PLUGIN_NAME } from "@/types";
 import HTML from "html-parse-stringify";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ICON_ATTRIBUTE, NODE_TYPE } from "../filter/filter";
 import { fetchSvgFromService } from "./fetch";
 import { getIconifyIcon } from "./iconify";
 import { optimiseRawSvg } from "./optimise";
-import {
-	getUseTagHref,
-	isFilePath,
-	isUrl,
-	readRawSvgFromFile,
-	removeIdFromPath,
-} from "./util";
+import { getUseTagHref, isFilePath, isUrl, removeIdFromPath } from "./util";
 
 async function getRawSVG(
 	node: TagAstElement,
@@ -32,8 +27,8 @@ async function getRawSVG(
 	 * development because bundler does not copy over static assets if they are
 	 * only referenced using a data attribute (rather than a recognised HTML
 	 * attribute)
-	 * 
-	 * Perhaps modify plugin to also traverse HTML and copy referenced local 
+	 *
+	 * Perhaps modify plugin to also traverse HTML and copy referenced local
 	 * assets to directory?
 	 */
 
@@ -45,7 +40,7 @@ async function getRawSVG(
 				new URL(removeIdFromPath(href), outDir).toString()
 			);
 		}
-		return readRawSvgFromFile(path.join(outDir, removeIdFromPath(href)));
+		return readFile(path.join(outDir, removeIdFromPath(href)), "utf8");
 	}
 
 	const [pack, name] = href.split(":");
@@ -69,10 +64,11 @@ async function getRawSVG(
 /**
  * Load the raw SVG whether from the output directory, the Iconify API, or some other external URL
  */
-export async function loadSvg(...params: Parameters<typeof getRawSVG>) {
+export async function loadSvgToNode(...params: Parameters<typeof getRawSVG>) {
 	const raw = await getRawSVG(...params);
 	const optimised = optimiseRawSvg(raw);
 	const [svg] = HTML.parse(optimised) as [TagAstElement];
 	svg.attrs[ICON_ATTRIBUTE] = "";
+	svg.attrs["data-prerendered"] = "";
 	return svg;
 }

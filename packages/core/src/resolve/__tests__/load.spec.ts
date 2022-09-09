@@ -1,10 +1,10 @@
 import { ICON_ATTRIBUTE, NODE_TYPE } from "@/filter/filter";
+import path from "node:path";
 import { describe, expect, test } from "vitest";
 import { createAstTag } from "~/lib/ast";
-import { loadSvg } from "../load";
-import path from "node:path";
-import { fetchMock } from "~/mocks/fetch";
 import { MOCK_RESPONSE } from "~/mocks/constants";
+import { fetchMock } from "~/mocks/fetch";
+import { loadSvgToNode } from "../load";
 
 const outDir = path.join(process.cwd(), "test", "mock-dist");
 
@@ -17,7 +17,7 @@ describe.concurrent("Load SVG", () => {
 			},
 		});
 
-		const svg = await loadSvg(node, NODE_TYPE.DATA_ATTRIBUTE, outDir);
+		const svg = await loadSvgToNode(node, NODE_TYPE.DATA_ATTRIBUTE, outDir);
 		expect(svg.children.length).toBeGreaterThan(0);
 		/**
 		 * See line 66 of src/resolve/load.ts to see why we expect
@@ -40,7 +40,7 @@ describe.concurrent("Load SVG", () => {
 			],
 		});
 
-		const svg = await loadSvg(node, NODE_TYPE.USE_HREF, outDir);
+		const svg = await loadSvgToNode(node, NODE_TYPE.USE_HREF, outDir);
 
 		expect(svg.children.length).toBeGreaterThan(0);
 		expect(svg.attrs[ICON_ATTRIBUTE]).toEqual("");
@@ -59,7 +59,7 @@ describe.concurrent("Load SVG", () => {
 			],
 		});
 
-		const svg = await loadSvg(node, NODE_TYPE.USE_HREF, outDir);
+		const svg = await loadSvgToNode(node, NODE_TYPE.USE_HREF, outDir);
 
 		expect(svg.children.length).toBeGreaterThan(0);
 		expect(svg.attrs[ICON_ATTRIBUTE]).toEqual("");
@@ -78,7 +78,7 @@ describe.concurrent("Load SVG", () => {
 			],
 		});
 
-		const svg = await loadSvg(node, NODE_TYPE.USE_HREF, outDir);
+		const svg = await loadSvgToNode(node, NODE_TYPE.USE_HREF, outDir);
 
 		expect(svg.children.length).toBeGreaterThan(0);
 		expect(svg.attrs[ICON_ATTRIBUTE]).toEqual("");
@@ -94,7 +94,7 @@ describe.concurrent("Load SVG", () => {
 			},
 		});
 
-		const svg = await loadSvg(node, NODE_TYPE.DATA_ATTRIBUTE, outDir);
+		const svg = await loadSvgToNode(node, NODE_TYPE.DATA_ATTRIBUTE, outDir);
 		expect(svg.name).toEqual("svg");
 	});
 
@@ -107,7 +107,7 @@ describe.concurrent("Load SVG", () => {
 		});
 
 		await expect(() =>
-			loadSvg(node, NODE_TYPE.DATA_ATTRIBUTE, outDir)
+			loadSvgToNode(node, NODE_TYPE.DATA_ATTRIBUTE, outDir)
 		).rejects.toThrowError();
 	});
 
@@ -125,7 +125,7 @@ describe.concurrent("Load SVG", () => {
 		});
 
 		await expect(() =>
-			loadSvg(node, NODE_TYPE.USE_HREF, outDir)
+			loadSvgToNode(node, NODE_TYPE.USE_HREF, outDir)
 		).rejects.toThrowError();
 	});
 });

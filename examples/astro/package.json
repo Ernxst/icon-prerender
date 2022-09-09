@@ -13,8 +13,9 @@
 		"@astrojs/mdx": "^0.10.0",
 		"@astrojs/rss": "^1.0.0",
 		"@astrojs/sitemap": "^1.0.0",
-		"icon-prerender": "workspace:*",
+		"@iconify/json": "^2.1.104",
 		"astro": "^1.0.6",
+		"icon-prerender": "workspace:*",
 		"rollup": "^2.78.1"
 	}
 }

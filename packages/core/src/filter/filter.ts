@@ -1,7 +1,7 @@
 import { HTML_ELEMENTS } from "@/html-elements";
 import { isRegExp } from "node:util/types";
 import { findTags } from "../ast-helpers";
-import type { AttributeFilter, SvgPrerenderPluginOptions } from "../types";
+import type { AttributeFilter, IconPrerenderPluginOptions } from "../types";
 
 // eslint-disable-next-line no-shadow
 export enum NODE_TYPE {
@@ -49,7 +49,7 @@ export const ICON_ATTRIBUTE = "data-icon";
  */
 export function getNodeType(
 	node: TagAstElement,
-	options?: SvgPrerenderPluginOptions
+	options?: IconPrerenderPluginOptions
 ) {
 	const { include, exclude } = options ?? {};
 	let isIncluded = false;

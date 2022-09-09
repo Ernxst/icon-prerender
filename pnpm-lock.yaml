@@ -33,6 +33,7 @@ importers:
       '@astrojs/mdx': ^0.10.0
       '@astrojs/rss': ^1.0.0
       '@astrojs/sitemap': ^1.0.0
+      '@iconify/json': ^2.1.104
       astro: ^1.0.6
       icon-prerender: workspace:*
       rollup: ^2.78.1
@@ -40,12 +41,14 @@ importers:
       '@astrojs/mdx': 0.10.3_rollup@2.79.0
       '@astrojs/rss': 1.0.0
       '@astrojs/sitemap': 1.0.0
+      '@iconify/json': 2.1.104
       astro: 1.1.5
       icon-prerender: link:../../packages/core
       rollup: 2.79.0
 
   examples/vite:
     specifiers:
+      '@iconify/json': ^2.1.104
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
       '@vitejs/plugin-react': ^2.0.1
@@ -58,6 +61,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@iconify/json': 2.1.104
       '@types/react': 18.0.18
       '@types/react-dom': 18.0.6
       '@vitejs/plugin-react': 2.1.0_vite@3.0.9
@@ -138,7 +142,7 @@ importers:
     specifiers:
       '@icon-prerender/eslint': workspace:*
       '@icon-prerender/tsconfig': workspace:*
-      '@iconify/json': 2.1.104
+      '@iconify/json': ^2.1.104
       '@iconify/types': 1.1.0
       '@iconify/utils': 1.0.33
       '@types/node': 18.7.15
@@ -160,6 +164,7 @@ importers:
       vitest-fetch-mock: 0.2.1
       webpack: ^5.0.0
     dependencies:
+      '@iconify/json': 2.1.104
       astro: 1.1.5
       esbuild: 0.15.7
       rollup: 2.79.0
@@ -168,7 +173,6 @@ importers:
     devDependencies:
       '@icon-prerender/eslint': link:../eslint
       '@icon-prerender/tsconfig': link:../tsconfig
-      '@iconify/json': 2.1.104
       '@iconify/types': 1.1.0
       '@iconify/utils': 1.0.33
       '@types/node': 18.7.15
@@ -2177,11 +2181,9 @@ packages:
     dependencies:
       '@iconify/types': 1.1.0
       pathe: 0.3.7
-    dev: true
 
   /@iconify/types/1.1.0:
     resolution: {integrity: sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==}
-    dev: true
 
   /@iconify/utils/1.0.33:
     resolution: {integrity: sha512-vGeAqo7aGPxOQmGdVoXFUOuyN+0V7Lcrx2EvaiRjxUD1x6Om0Tvq2bdm7E24l2Pz++4S0mWMCVFXe/17EtKImQ==}
@@ -8582,7 +8584,6 @@ packages:
 
   /pathe/0.3.7:
     resolution: {integrity: sha512-yz7GK+kSsS27x727jtXpd5VT4dDfP/JDIQmaowfxyWCnFjOWtE1VIh7i6TzcSfzW0n4+bRQztj1VdKnITNq/MA==}
-    dev: true
 
   /pathval/1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
@@ -11657,7 +11658,6 @@ packages:
       - '@swc/core'
       - esbuild
       - uglify-js
-    dev: false
 
   /webpack/5.74.0_webpack-cli@4.10.0:
     resolution: {integrity: sha512-A2InDwnhhGN4LYctJj6M1JEaGL7Luj6LOmyBHjcI8529cm5p6VXiTIW2sn6ffvEAKmveLzvu4jrihwXtPojlAA==}

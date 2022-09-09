@@ -1,5 +1,4 @@
 import { PLUGIN_NAME } from "@/types";
-import fs from "node:fs";
 import path from "node:path";
 import HTML from "html-parse-stringify";
 import { findTags } from "@/ast-helpers";
@@ -54,7 +53,7 @@ export function removeIdFromPath(rawPath: string) {
 }
 
 /**
- *
+ * Get the `href` or `xlink:href` from a `<use>` wrapped inside an `<svg>`
  * @param node
  */
 export function getUseTagHref(node: TagAstElement) {
@@ -69,9 +68,4 @@ ${HTML.stringify([node])}`);
 	}
 
 	return rawPath;
-}
-
-/* istanbul ignore next */
-export function readRawSvgFromFile(filePath: string) {
-	return fs.promises.readFile(filePath, "utf8");
 }

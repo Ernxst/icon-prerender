@@ -18,8 +18,7 @@
 	"exports": {
 		"./astro": {
 			"types": "./dist/astro/index.d.ts",
-			"import": "./dist/astro/index.js",
-			"require": "./dist/astro/index.cjs"
+			"import": "./dist/astro/index.js"
 		},
 		"./esbuild": {
 			"types": "./dist/esbuild/index.d.ts",
@@ -71,6 +70,8 @@
 	},
 	"packageManager": "pnpm@7.5.2",
 	"scripts": {
+		"dev": "tsup --watch",
+		"-------------------------------------------------------------------------------": "",
 		"build": "tsup --clean",
 		"build:dts": "tsup --dtsOnly",
 		"--------------------------------------------------------------------------------": "",
@@ -105,7 +106,6 @@
 	"devDependencies": {
 		"@icon-prerender/eslint": "workspace:*",
 		"@icon-prerender/tsconfig": "workspace:*",
-		"@iconify/json": "2.1.104",
 		"@iconify/types": "1.1.0",
 		"@iconify/utils": "1.0.33",
 		"@types/node": "18.7.15",
@@ -123,6 +123,7 @@
 		"vitest-fetch-mock": "0.2.1"
 	},
 	"dependencies": {
+		"@iconify/json": "^2.1.104",
 		"astro": "^1.0.0",
 		"esbuild": "^0.15.7",
 		"rollup": "^2.79.0",
@@ -130,6 +131,7 @@
 		"webpack": "^5.0.0"
 	},
 	"peerDependencies": {
+		"@iconify/json": "*",
 		"astro": "*",
 		"esbuild": "*",
 		"rollup": "*",

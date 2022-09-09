@@ -1,7 +1,18 @@
 import { PLUGIN_NAME } from "@/types";
 
 // Taken from https://github.com/natemoo-re/astro-icon/blob/main/packages/core/lib/resolver.ts
+/**
+ * Stores requests that are currently being made.
+ *
+ * If a request to the same URL is made while another has not yet completed,
+ * the in flight request will be returned.
+ *
+ * Once the request is complete, it is removed from this cache
+ */
 export const inFlightRequests = new Map<string, Promise<string>>();
+/**
+ * Cache to avoid extra fetch requests
+ */
 export const fetchCache = new Map<string, string>();
 
 export async function fetchSvgFromService(url: string) {

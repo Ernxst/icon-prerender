@@ -1,10 +1,10 @@
-import { prerender } from "@/plugin-common";
 import type { Plugin } from "esbuild";
-import type { SvgPrerenderPluginOptions } from "../types";
+import type { IconPrerenderPluginOptions } from "../types";
 import { PLUGIN_NAME } from "../types";
+import { useLoader } from "../loader/loader";
 
 export interface IconPrerenderPluginESBuildOptions
-	extends SvgPrerenderPluginOptions {}
+	extends IconPrerenderPluginOptions {}
 
 /**
  * ESBuild plugin to replace icons with the actual SVG element at build time.
@@ -17,12 +17,20 @@ export default function icons(
 ): Plugin {
 	return {
 		name: PLUGIN_NAME,
-		setup({ onEnd, initialOptions }) {
-			onEnd(async () => {
-				await prerender({
-					...options,
+		setup({ onLoad, initialOptions }) {
+			onLoad({ filter: /.*/ }, async (args) => {
+				const result = await useLoader(args.path, {
 					outDir: initialOptions.outdir ?? "dist",
+					...options,
 				});
+
+				if (result) {
+					return {
+						contents: "code",
+					};
+				}
+
+				return null;
 			});
 		},
 	};

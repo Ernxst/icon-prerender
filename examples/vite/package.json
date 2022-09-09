@@ -13,10 +13,11 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"icon-prerender": "workspace:*",
+		"@iconify/json": "^2.1.104",
 		"@types/react": "^18.0.17",
 		"@types/react-dom": "^18.0.6",
 		"@vitejs/plugin-react": "^2.0.1",
+		"icon-prerender": "workspace:*",
 		"typescript": "^4.6.4",
 		"vite": "^3.0.9"
 	}

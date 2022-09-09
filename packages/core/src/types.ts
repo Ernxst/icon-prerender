@@ -3,7 +3,7 @@ export type AttributeFilter =
 	| RegExp
 	| ((attribute: string, value: string) => boolean);
 
-export interface SvgPrerenderPluginOptions {
+export interface IconPrerenderPluginOptions {
 	/**
 	 * A regex, an array of strings (or regexes) of HTML attributes
 	 * (can be custom) to filter elements on

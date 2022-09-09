@@ -1,10 +1,10 @@
-import { prerender } from "@/plugin-common";
-import type { SvgPrerenderPluginOptions } from "@/types";
+import type { IconPrerenderPluginOptions } from "@/types";
 import { PLUGIN_NAME } from "@/types";
-import type { Plugin } from "vite";
+import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
+import { useLoader } from "../loader/loader";
 
 export interface IconPrerenderPluginViteOptions
-	extends SvgPrerenderPluginOptions {}
+	extends IconPrerenderPluginOptions {}
 
 /**
  * Vite plugin to replace icons with the actual SVG element at build time.
@@ -15,19 +15,23 @@ export interface IconPrerenderPluginViteOptions
 export default function icons(
 	options?: IconPrerenderPluginViteOptions
 ): Plugin {
-	let outDir: string;
+	let vite: ViteDevServer;
+	let userConfig: ResolvedConfig;
 
 	return {
 		name: PLUGIN_NAME,
 		configResolved(config) {
-			// eslint-disable-next-line prefer-destructuring
-			outDir = config.build.outDir;
+			userConfig = config;
 		},
-		async writeBundle() {
-			await prerender({
-				...options,
-				outDir,
-			});
+		configureServer(server) {
+			vite = server;
+		},
+		load(id) {
+			const outDir =
+				userConfig.command === "serve"
+					? vite.resolvedUrls?.local[0] ?? ""
+					: userConfig.build.outDir;
+			return useLoader(id, { outDir, ...options });
 		},
 	};
 }

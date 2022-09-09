@@ -34,7 +34,7 @@ export default defineConfig({
 				"src/**/@types/**/*.ts",
 				"src/**/*.d.ts",
 				"src/resolve/optimise.ts",
-				"src/frameworks/**",
+				"src/frameworks/**/*",
 			],
 		},
 	},

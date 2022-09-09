@@ -9,7 +9,7 @@
 	},
 	"include": [
 		"src/**/*.ts",
-		"test",
+		"test/**/*",
 		"vitest.config.ts",
 		"tsup.config.ts",
 		"package.json",
