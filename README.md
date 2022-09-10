@@ -167,6 +167,8 @@ Note: specifying `include` or `exclude` will not override default filtering - th
 
   - Completely custom resolution would then be achieved by simply using `include` and `exclude` in tandem with this new plugin option
 
+- [ ] Add more component tests, especially with larger files
+
 Have any other ideas? Make a suggestion in the [Discussions](https://github.com/Ernxst/icon-prerender/discussions) tab.
 
 ## Contributing
