@@ -15,6 +15,10 @@ function App() {
 					<img src={reactLogo} className="logo react" alt="React logo" />
 				</a>
 				<svg data-preserved data-icon="mdi:chevron-right"></svg>
+				<svg data-preserved data-icon="mdi:chevron-up"></svg>
+				<svg data-icon="feather:edit"></svg>
+				<svg data-icon="mdi:chevron-left"></svg>
+				<svg data-preserved data-icon="mdi:twitter"></svg>
 			</div>
 			<h1>Vite + React</h1>
 			<div className="card">
