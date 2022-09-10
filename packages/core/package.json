@@ -7,7 +7,7 @@
 		"url": "https:/www.ernestbadu.me"
 	},
 	"license": "MIT",
-	"homepage": "https://github.com/Ernxst/icon-prerender",
+	"homepage": "https://github.com/Ernxst/icon-prerender/packages/core",
 	"bugs": "https://github.com/Ernxst/icon-prerender/issues",
 	"repository": {
 		"type": "git",
@@ -117,6 +117,9 @@
 		"fast-glob": "3.2.11",
 		"html-parse-stringify": "3.0.1",
 		"jsdom": "20.0.0",
+		"magic-string": "0.26.3",
+		"remark": "14.0.2",
+		"svelte": "3.50.1",
 		"svgo": "2.8.0",
 		"tsup": "6.2.3",
 		"vite-tsconfig-paths": "3.5.0",
@@ -133,10 +136,10 @@
 	},
 	"peerDependencies": {
 		"@iconify/json": "*",
-		"typescript": "*",
 		"astro": "*",
 		"esbuild": "*",
 		"rollup": "*",
+		"typescript": "*",
 		"vite": "*",
 		"webpack": "*"
 	},
