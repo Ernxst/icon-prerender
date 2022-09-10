@@ -23,14 +23,13 @@ export async function prerenderStatic(options: PrerenderBuildOptions) {
 
 	await Promise.all(
 		htmlFiles.map(async (file) => {
-			let replaced = true;
 			const content = await readFile(file, "utf8");
 
 			const [doctype] = HTML.parse(content);
 			const [htmlTag] = findTags("html", doctype);
 			const [body] = findTags("body", htmlTag);
 
-			replaced = await traverse(body, options);
+			const replaced = await traverse(body, options);
 
 			// Avoids unnecessary file writes
 			if (replaced) {
