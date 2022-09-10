@@ -1,15 +1,10 @@
-import type { SetOptional } from "type-fest";
-
 /**
  * Helper function with TypeScript intellisense
  * @param ast
  * @returns
  */
 export function createAstTag(
-	ast: SetOptional<
-		Omit<TagAstElement, "type">,
-		"children" | "attrs" | "voidElement"
-	>
+	ast: Partial<Omit<TagAstElement, "type" | "name">> & { name: string }
 ): TagAstElement {
 	return {
 		children: [],
