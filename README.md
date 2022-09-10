@@ -4,7 +4,7 @@
 
 # 🚀 Icon Prerender
 
-A plugin (likely compatible with your build tool) that prerenders your SVG icons at build time so your clients don't have to fetch them during browsing. Designed for ease-of-use and maximum performance.
+A framework-agnostic plugin (likely compatible with your build tool) that prerenders your SVG icons at build time so your clients don't have to fetch them during browsing. Designed for ease-of-use and maximum performance.
 
 ## Why?
 
