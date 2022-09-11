@@ -2,11 +2,12 @@ import { ICON_ATTRIBUTE } from "@/filter/filter";
 import type { PrerenderOptions } from "@/prerender/util";
 import { readFile } from "node:fs/promises";
 import { typescriptParser } from "./parsers/typescript";
-import { isComponentFile } from "./util";
 import path from "node:path";
 import { mdParser } from "./parsers/md";
 import type { GenericParser } from "./parsers/types";
 import { svelteParser } from "./parsers/svelte";
+import { astroParser } from "./parsers/astro";
+import { createFilter } from "vite";
 
 interface LoaderOptions extends PrerenderOptions {}
 
@@ -17,11 +18,16 @@ interface LoaderOptions extends PrerenderOptions {}
  * 	- .svelte
  */
 const PARSERS: Partial<Record<string, GenericParser>> = {
+	".astro": astroParser(),
 	".md": mdParser(),
 	".mdx": mdParser(),
 	".svelte": svelteParser(),
 	".svx": svelteParser(),
 };
+
+const isComponentFile = createFilter([
+	"**/*.{js,ts,jsx,tsx,html,svelte,astro,svx,md,mdx,vue}",
+]);
 
 /**
  * Attempt to access source code to replace any HTML fragments there, before
