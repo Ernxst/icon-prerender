@@ -4,7 +4,6 @@ import { prerenderStatic } from "@/prerender/static";
 import type { IconPrerenderPluginOptions } from "@/types";
 import { PLUGIN_NAME } from "@/types";
 import type { AstroIntegration } from "astro";
-import { stripControlCharacters } from "../loader/util";
 import HTML from "html-parse-stringify";
 import type { Connect } from "vite";
 import type { PrerenderOptions } from "@/prerender/util";
@@ -20,18 +19,29 @@ function getUrlOrigin(req: Connect.IncomingMessage) {
 		req.headers.origin ??
 		req.headers.referer ??
 		// Unfortunately, we have to assume it runs on `http`
-		new URL(`http://${req.headers.host!}`).origin
+		new URL(`http://${req.headers.host ?? ""}`).origin
 	);
 }
 
 async function prerenderDev(code: string, options: PrerenderOptions) {
-	const [node] = HTML.parse(code);
+	// Add spaces around comments
+	code = code.replaceAll(/(<!--.*-->)/g, " $1 ");
 
-	if (node.type === "tag") {
-		return prerenderNode({ node, ...options });
+	const nodes = HTML.parse(code);
+	let processedCode = "";
+
+	/**
+	 * We are processing raw HTML here, so it is safe to use the buggy stringify function over an AST
+	 *
+	 *  */
+	for (const node of nodes) {
+		processedCode +=
+			node.type === "tag"
+				? await prerenderNode({ node, ...options })
+				: HTML.stringify([node]);
 	}
 
-	return code;
+	return processedCode;
 }
 /**
  * Astro integration to replace icons with the actual SVG element at build time.
@@ -54,9 +64,7 @@ export default function icons(
 					 * Idea: intercept `res.write` to rewrite HTML files
 					 */
 
-					// TODO: Will making res.write async affect execution? e.g., slow API
-					// @ts-expect-error res.write is not async, but we need it to be
-					res.write = async function prerender(chunk: Uint8Array) {
+					res.write = function prerender(chunk: Uint8Array) {
 						if (res.getHeader("content-type") === "text/html") {
 							try {
 								const code = Buffer.from(chunk).toString();
@@ -64,15 +72,12 @@ export default function icons(
 								// If statement required to avoid attempting to process malformed HTML - not sure why this occurs
 								if (code.includes(ICON_ATTRIBUTE) || code.includes("<use")) {
 									// Should async await even work here? What if `code` was much larger?
-									const html = await prerenderDev(
-										stripControlCharacters(code),
-										{
-											outDir: origin,
-											...options,
-										}
-									);
-
-									return resWrite.apply(this, [Buffer.from(html), "utf8"]);
+									void prerenderDev(code, {
+										outDir: origin,
+										...options,
+									}).then((html) => {
+										resWrite.apply(this, [Buffer.from(html), "utf8"]);
+									});
 								}
 							} catch (error) {
 								server.ssrFixStacktrace(error as never);
