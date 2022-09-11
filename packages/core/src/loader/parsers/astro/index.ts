@@ -34,7 +34,7 @@ export function astroParser(): TsParser {
 			 */
 			const templateAsJsx = `export default Component = () => (\n<>\n${template}\n</>\n);`;
 			const prerendered = await parser.prerender(templateAsJsx, options);
-			
+
 			// Add the doc type back
 			const docTypeAdded = prerendered.replaceAll(
 				/{\s*\/\*\s*__DOCTYPE__\s*\*\/\s*}/g,
