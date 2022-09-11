@@ -1,5 +1,11 @@
 # icon-prerender
 
+## 0.1.2
+
+### Patch Changes
+
+- [`0562a77`](https://github.com/Ernxst/icon-prerender/commit/0562a77a4cfd0462aa09412ccb26165a69c25123) Thanks [@Ernxst](https://github.com/Ernxst)! - chore: downgrade tsup version
+
 ## 0.1.1
 
 ### Patch Changes
