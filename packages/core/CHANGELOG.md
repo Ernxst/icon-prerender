@@ -1,5 +1,17 @@
 # icon-prerender
 
+## 0.1.1
+
+### Patch Changes
+
+- [`8b811a9`](https://github.com/Ernxst/icon-prerender/commit/8b811a941eead2cb8bffa251b2d456edaf7ed7bc) Thanks [@Ernxst](https://github.com/Ernxst)! - fix(astro): remove `async` code in `astro dev`
+
+  fix(astro): fixes to code parsing
+
+  - add spaces after comments so `html-parse-stringify` does not parse all elements as comments
+  - do not strip control characters during development
+  - parse _all_ nodes during development
+
 ## 0.1.0
 
 ### Minor Changes
