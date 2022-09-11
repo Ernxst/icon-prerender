@@ -1,7 +1,6 @@
 import { getNodeType, NODE_TYPE } from "@/filter/filter";
 import { prerenderNode } from "@/prerender/util";
 import ts from "typescript";
-import { stripControlCharacters } from "../../util";
 import type { JsxNode, TsParser } from "./visitor";
 import { createTsVisitor } from "./visitor";
 import { createPrerenderTsNode, replacePlaceholders } from "./util";
@@ -19,7 +18,7 @@ export function typescriptParser(): TsParser {
 		parse(code) {
 			return ts.createSourceFile(
 				"",
-				stripControlCharacters(code),
+				code,
 				ts.ScriptTarget.Latest,
 				true,
 				ts.ScriptKind.JSX
