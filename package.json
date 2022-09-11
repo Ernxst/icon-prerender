@@ -25,7 +25,7 @@
 		"test": "turbo run test  --filter=!@example/*",
 		"aggregate": "node ./scripts/aggregate.mjs",
 		"-------------------------------------------------------------------------------------": "",
-		"format": "prettier --write \"**/*.{ts,js,mjs,cjs,d.ts,yml,yaml,toml,json,html,css,vue,tsx,html,astro,.jsx}\"",
+		"format": "prettier --write \"**/*.{ts,js,mjs,cjs,d.ts,yml,yaml,toml,json,html,css,vue,tsx,html,astro,jsx}\"",
 		"clean": "rimraf **/*/{dist,node_modules,.turbo,coverage,.nyc-output,.pnpm-debug.log} && rm -rf node_modules && rm -rf .pnpm-debug.log",
 		"--------------------------------------------------------------------------------------": "",
 		"prepare": "husky install",
