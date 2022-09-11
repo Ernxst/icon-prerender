@@ -3,7 +3,7 @@
  */
 module.exports = {
 	extends: [require.resolve("@icon-prerender/eslint/eslintrc.cjs")],
-	ignorePatterns: ["**/*.tsx"],
+	ignorePatterns: ["**/*.tsx", "**/src/loader/parsers/svelte/index.ts"],
 	overrides: [
 		{
 			files: ["*.ts"],
